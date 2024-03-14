@@ -598,25 +598,27 @@ void determineOutcome(vector<Card>uHand, vector<Card> dHand, bool uBust, bool dB
 
 /*Determines the outcome of a split game
 -Displays all information of the game
--Determines the outcome of hand1, adjusts userBalance, and outputs the outcome
--Determines the outcome of hand2, adjusts userBalance, and outputs the outcome*/
-void determineSplitOutcome(vector<Card>hand1, vector<Card> hand2, vector<Card> dHand, bool uBust, bool sBust, bool dBust) {
+-Determines the outcome of hand1, adjusts userBalance */
+void determineHand1Outcome(vector<Card> hand1, vector<Card> hand2, vector<Card> dHand, bool uBust, bool dBust) {
     displaySplitHeader(wager1, wager2);
     displayDealerHand(dHand);
     displaySplitHand(hand1, hand2);
-    int currentHand = 1;
-    while (currentHand == 1) {
-        if (uBust && dBust) {
-            userBalance += wager1;
-            cout << "Your first hand is a draw. You and the dealer busted." << endl;
-        }
-        else if (uBust) {
-            cout << "Your first hand loses. You busted." << endl;
-        }
-        else if (dBust) {
-            userBalance += (wager1 * 2);
-            cout << "Your first hand wins! The dealer busted!" << endl; 
-        }
+    bool resolved = false;
+    if (uBust && dBust) {
+        userBalance += wager1;
+        cout << "Your first hand is a draw. You and the dealer busted." << endl;
+        resolved = true;
+    }
+    else if (uBust) {
+        cout << "Your first hand loses. You busted." << endl;
+        resolved = true;
+    }
+    else if (dBust) {
+        userBalance += (wager1 * 2);
+        cout << "Your first hand wins! The dealer busted!" << endl;
+        resolved = true;
+    }
+    if (!resolved) {
         if (sumHand(hand1) > sumHand(dHand) && !uBust) {
             userBalance += (wager1 * 2);
             cout << "Your first hand wins!" << endl;
@@ -624,24 +626,32 @@ void determineSplitOutcome(vector<Card>hand1, vector<Card> hand2, vector<Card> d
         else if (sumHand(hand1) < sumHand(dHand) && !dBust) {
             cout << "Your first hand loses." << endl;
         }
-        else if ((sumHand(hand1) == sumHand(dHand)) && (!uBust && !dBust)) {
+        else if (sumHand(hand1) == sumHand(dHand)) {
             userBalance += wager1;
             cout << "Your first hand is a draw." << endl;
         }
-        currentHand = 2;
     }
-    while (currentHand == 2) {
-        if (sBust && dBust) {
-            userBalance += wager2;
-            cout << "Your second hand is a draw. You and the dealer busted." << endl;
-        }
-        else if (sBust) {
-            cout << "Your second hand loses. You busted." << endl;
-        }
-        else if (dBust) {
-            userBalance += (wager2 * 2);
-            cout << "Your second hand wins! The dealer busted!" << endl;
-        }
+}
+
+/*Determines the outcome of a split game
+-Determines the outcome of hand2, adjusts userBalance, and outputs userBalance*/
+void determineHand2Outcome(vector<Card> hand2, vector<Card> dHand, bool sBust, bool dBust) {
+    bool resolved = false;
+    if (sBust && dBust) {
+        userBalance += wager2;
+        cout << "Your second hand is a draw. You and the dealer busted." << endl;
+        resolved = true;
+    }
+    else if (sBust) {
+        cout << "Your second hand loses. You busted." << endl;
+        resolved = true;
+    }
+    else if (dBust) {
+        userBalance += (wager2 * 2);
+        cout << "Your second hand wins! The dealer busted!" << endl;
+        resolved = true;
+    }
+    if (!resolved) {
         if (sumHand(hand2) > sumHand(dHand) && !sBust) {
             userBalance += (wager2 * 2);
             cout << "Your second hand wins!" << endl;
@@ -649,16 +659,13 @@ void determineSplitOutcome(vector<Card>hand1, vector<Card> hand2, vector<Card> d
         else if (sumHand(hand2) < sumHand(dHand) && !dBust) {
             cout << "Your second hand loses." << endl;
         }
-        else if ((sumHand(hand2) == sumHand(dHand)) && (!sBust && !dBust)) {
+        else if (sumHand(hand2) == sumHand(dHand)) {
             userBalance += wager2;
             cout << "Your second hand is a draw." << endl;
         }
-        currentHand = 0;
     }
     cout << "Your Balance: $" << userBalance << endl;
     cout << endl;
-    
-   
 }
 
 /*Gameplay loop for the user turn in a single hand game
