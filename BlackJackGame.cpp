@@ -908,6 +908,7 @@ int main()
             splitBust = determineBust(splitHand);
             /*Dealer plays their hand*/
             dealerHand = dealerSplitPlay(dealerHand, userBust, splitBust);
+            dealerBust = determineBust(dealerHand);
             /*Determines Outcome for both hands*/
             determineSplitOutcome(userHand, splitHand, dealerHand, userBust, splitBust, dealerBust);
             /*Reset everything used in the game*/
