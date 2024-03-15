@@ -911,7 +911,8 @@ int main()
             dealerHand = dealerSplitPlay(dealerHand, userBust, splitBust);
             dealerBust = determineBust(dealerHand);
             /*Determines Outcome for both hands*/
-            determineSplitOutcome(userHand, splitHand, dealerHand, userBust, splitBust, dealerBust);
+            determineHand1Outcome(userHand, splitHand, dealerHand, userBust, dealerBust);
+            determineHand2Outcome(splitHand, dealerHand, splitBust, dealerBust);
             /*Reset everything used in the game*/
             userHand.clear();
             splitHand.clear();
