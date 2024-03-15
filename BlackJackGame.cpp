@@ -504,7 +504,7 @@ void displayHeader(int wager) {
 -Used for split hands*/
 void displaySplitHeader(int wager1, int wager2) {
     cout << "Your Balance: $" << userBalance << " | Hand 1 Wager: $" << wager1 << " | Hand 2 Wager: $" << wager2 << endl;
-    cout << "endl";
+    cout << endl;
 
 }
 
@@ -528,6 +528,7 @@ void displaySplitHand(vector<Card> hand1, vector<Card> hand2) {
     }
     cout << "Total: " << sumHand(hand1) << endl;
     cout << endl;
+    cout << "Hand 2:" << endl;
     for (int i = 0; i < hand2.size(); i++) {
         cout << hand2[i].getName() << " of " << hand2[i].getSuit() << endl;
     }
